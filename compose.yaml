@@ -1,0 +1,16 @@
+services:
+  db:
+    image: 'postgres:15'
+    container_name: 'farmtrack_db'
+    environment:
+      - 'POSTGRES_DB=farmtrack'
+      - 'POSTGRES_PASSWORD=1111'
+      - 'POSTGRES_USER=farmadmin'
+    ports:
+      - '5433:5432'
+    volumes:
+      - farm:/var/lib/postgresql/data
+
+volumes:
+  farm:
+    name: 'farm'

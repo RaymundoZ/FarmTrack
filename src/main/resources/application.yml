@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: 'jdbc:postgresql://db:5433/farmtrack'
+    username: 'farmadmin'
+    password: '1111'
+  jpa:
+    hibernate:
+      ddl-auto: update
