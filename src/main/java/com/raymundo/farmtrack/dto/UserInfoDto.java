@@ -1,9 +1,9 @@
 package com.raymundo.farmtrack.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.raymundo.farmtrack.util.Role;
+import com.raymundo.farmtrack.validation.EnumValid;
+import com.raymundo.farmtrack.validation.UserEmailUnique;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -14,6 +14,7 @@ public record UserInfoDto(
         @NotBlank(message = "Email should not be blank")
         @Email(message = "Email should be valid")
         @Size(max = 50, message = "Email should not exceed 50 characters")
+        @UserEmailUnique(message = "This email is already taken")
         String email,
 
         @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -34,8 +35,8 @@ public record UserInfoDto(
         String patronymic,
 
         @NotNull(message = "Role should not be blank")
-        @JsonFormat(shape = JsonFormat.Shape.STRING)
-        Role role,
+        @EnumValid(message = "Role should be valid")
+        String role,
 
         @JsonIgnore
         String accessToken,

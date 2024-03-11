@@ -13,8 +13,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.time.LocalTime;
@@ -27,30 +27,31 @@ public class SecurityConfig {
             "/auth/login"
     };
 
-    private static final String[] AUTHENTICATED_ENDPOINTS = new String[]{
-
+    private static final String[] USER_ENDPOINTS = new String[]{
+            "/report"
     };
 
     private static final String[] ADMIN_ENDPOINTS = new String[]{
-            "/auth/register"
+            "/auth/register",
+            "/product",
+            "/product/*"
     };
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, JwtFilter jwtFilter, ObjectMapper mapper) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, JwtFilter jwtFilter, ObjectMapper mapper,
+                                                   AuthenticationEntryPoint entryPoint) throws Exception {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
-                .anonymous(AbstractHttpConfigurer::disable)
                 .logout(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-                .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers(PERMIT_ALL_ENDPOINTS).permitAll();
-                    auth.requestMatchers(ADMIN_ENDPOINTS).hasAuthority(Role.ADMIN.toString());
-                    auth.requestMatchers(AUTHENTICATED_ENDPOINTS).authenticated();
-                    auth.anyRequest().denyAll();
-                })
+                .authorizeHttpRequests(auth ->
+                        auth.requestMatchers(PERMIT_ALL_ENDPOINTS).permitAll()
+                                .requestMatchers(ADMIN_ENDPOINTS).hasAuthority(Role.ADMIN.toString())
+                                .requestMatchers(USER_ENDPOINTS).hasAnyAuthority(Role.USER.toString(), Role.ADMIN.toString())
+                )
                 .exceptionHandling(configurer -> {
-                    configurer.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
+                    configurer.authenticationEntryPoint(entryPoint);
                     configurer.accessDeniedHandler((request, response, exception) -> {
                         response.setStatus(HttpStatus.FORBIDDEN.value());
                         response.setContentType(MediaType.APPLICATION_JSON_VALUE);

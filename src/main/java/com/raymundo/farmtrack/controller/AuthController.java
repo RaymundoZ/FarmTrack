@@ -25,10 +25,10 @@ public class AuthController {
     @PostMapping(value = "/login")
     public ResponseEntity<SuccessDto<UserInfoDto>> authenticate(@Valid @RequestBody AuthDto authDto, HttpServletResponse response) {
         UserInfoDto userInfoDto = authService.authenticate(authDto);
-        response.addCookie(new Cookie("access_token", null));
-        response.addCookie(new Cookie("refresh_token", null));
-        response.addCookie(new Cookie("access_token", userInfoDto.accessToken()));
-        response.addCookie(new Cookie("refresh_token", userInfoDto.refreshToken()));
+        response.addCookie(getCookie("access_token", null));
+        response.addCookie(getCookie("refresh_token", null));
+        response.addCookie(getCookie("access_token", userInfoDto.accessToken()));
+        response.addCookie(getCookie("refresh_token", userInfoDto.refreshToken()));
         return ResponseEntity.ok(new SuccessDto<>(
                 HttpStatus.OK.value(),
                 "Authorization succeed",
@@ -38,10 +38,16 @@ public class AuthController {
 
     @PostMapping(value = "/register")
     public ResponseEntity<SuccessDto<UserInfoDto>> register(@Valid @RequestBody UserInfoDto userInfoDto) {
-        return ResponseEntity.ok(new SuccessDto<>(
-                HttpStatus.OK.value(),
+        return ResponseEntity.status(HttpStatus.CREATED).body(new SuccessDto<>(
+                HttpStatus.CREATED.value(),
                 "Registration succeed",
                 authService.register(userInfoDto)
         ));
+    }
+
+    private Cookie getCookie(String name, String value) {
+        Cookie cookie = new Cookie(name, value);
+        cookie.setPath("/");
+        return cookie;
     }
 }

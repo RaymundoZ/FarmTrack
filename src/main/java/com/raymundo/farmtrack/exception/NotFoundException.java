@@ -13,7 +13,8 @@ public class NotFoundException extends RuntimeException {
 
     @RequiredArgsConstructor
     public enum Code {
-        USER_NOT_FOUND("User with '%s' id not found");
+        USER_NOT_FOUND("User with '%s' id not found"),
+        PRODUCT_NOT_FOUND("Product with '%s' name not found");
 
         private final String message;
 

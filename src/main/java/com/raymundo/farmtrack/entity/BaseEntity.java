@@ -10,7 +10,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -32,11 +32,11 @@ public abstract class BaseEntity {
 
     @CreatedDate
     @Column(name = "created_date")
-    private Instant createdDate;
+    private LocalDate createdDate;
 
     @LastModifiedDate
     @Column(name = "last_modified_date")
-    private Instant lastModifiedDate;
+    private LocalDate lastModifiedDate;
 
     @Override
     public final boolean equals(Object o) {
