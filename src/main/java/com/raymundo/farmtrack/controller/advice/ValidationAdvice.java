@@ -1,6 +1,7 @@
 package com.raymundo.farmtrack.controller.advice;
 
 import com.raymundo.farmtrack.dto.basic.ErrorDto;
+import com.raymundo.farmtrack.exception.GradeException;
 import com.raymundo.farmtrack.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,16 @@ public class ValidationAdvice {
 
     @ExceptionHandler(value = NotFoundException.class)
     public ResponseEntity<ErrorDto> handleNotFoundException(NotFoundException e) {
+        return ResponseEntity.badRequest().body(new ErrorDto(
+                HttpStatus.BAD_REQUEST.value(),
+                e.getClass().getSimpleName(),
+                e.getMessage(),
+                LocalTime.now()
+        ));
+    }
+
+    @ExceptionHandler(value = GradeException.class)
+    public ResponseEntity<ErrorDto> handleGradeException(GradeException e) {
         return ResponseEntity.badRequest().body(new ErrorDto(
                 HttpStatus.BAD_REQUEST.value(),
                 e.getClass().getSimpleName(),

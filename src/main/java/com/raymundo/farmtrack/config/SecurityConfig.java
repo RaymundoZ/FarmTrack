@@ -38,7 +38,9 @@ public class SecurityConfig {
             "/product",
             "/product/*",
             "/report/stat",
-            "/report/stat/*"
+            "/report/stat/*",
+            "/grade",
+            "/grade/*"
     };
 
     @Bean
