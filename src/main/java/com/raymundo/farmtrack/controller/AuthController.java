@@ -10,10 +10,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/auth")
@@ -37,11 +34,29 @@ public class AuthController {
     }
 
     @PostMapping(value = "/register")
-    public ResponseEntity<SuccessDto<UserInfoDto>> register(@Valid @RequestBody UserInfoDto userInfoDto) {
+    public ResponseEntity<SuccessDto<UserInfoDto>> registerUser(@Valid @RequestBody UserInfoDto userInfoDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(new SuccessDto<>(
                 HttpStatus.CREATED.value(),
                 "Registration succeed",
-                authService.register(userInfoDto)
+                authService.registerUser(userInfoDto)
+        ));
+    }
+
+    @PostMapping(value = "/block/{userEmail}")
+    public ResponseEntity<SuccessDto<UserInfoDto>> blockUser(@PathVariable String userEmail) {
+        return ResponseEntity.ok(new SuccessDto<>(
+                HttpStatus.OK.value(),
+                "User has been successfully blocked",
+                authService.blockUser(userEmail)
+        ));
+    }
+
+    @PostMapping(value = "/unblock/{userEmail}")
+    public ResponseEntity<SuccessDto<UserInfoDto>> unblockUser(@PathVariable String userEmail) {
+        return ResponseEntity.ok(new SuccessDto<>(
+                HttpStatus.OK.value(),
+                "User has been successfully unblocked",
+                authService.unblockUser(userEmail)
         ));
     }
 

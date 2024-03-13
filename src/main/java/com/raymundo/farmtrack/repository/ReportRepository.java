@@ -10,6 +10,6 @@ import java.util.UUID;
 
 @Repository
 public interface ReportRepository extends JpaRepository<ReportEntity, UUID> {
-    
+
     List<ReportEntity> findAllByCreatedDateBetween(LocalDate start, LocalDate end);
 }

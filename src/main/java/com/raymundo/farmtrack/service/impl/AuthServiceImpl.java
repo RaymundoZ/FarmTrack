@@ -4,6 +4,7 @@ import com.raymundo.farmtrack.dto.AuthDto;
 import com.raymundo.farmtrack.dto.UserInfoDto;
 import com.raymundo.farmtrack.entity.UserEntity;
 import com.raymundo.farmtrack.exception.AuthException;
+import com.raymundo.farmtrack.exception.NotFoundException;
 import com.raymundo.farmtrack.mapper.UserInfoMapper;
 import com.raymundo.farmtrack.repository.UserRepository;
 import com.raymundo.farmtrack.service.AuthService;
@@ -11,12 +12,12 @@ import com.raymundo.farmtrack.service.JwtService;
 import com.raymundo.farmtrack.util.TokenType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolderStrategy;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,7 +29,6 @@ public class AuthServiceImpl implements AuthService {
     private final UserInfoMapper userInfoMapper;
     private final UserRepository userRepository;
     private final JwtService jwtService;
-    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserInfoDto authenticate(AuthDto authDto) {
@@ -39,8 +39,10 @@ public class AuthServiceImpl implements AuthService {
         Authentication authentication;
         try {
             authentication = authManager.authenticate(token);
-        } catch (AuthenticationException e) {
+        } catch (BadCredentialsException e) {
             throw AuthException.Code.BAD_CREDENTIALS.get();
+        } catch (DisabledException e) {
+            throw AuthException.Code.ACCOUNT_BLOCKED.get();
         }
 
         SecurityContext securityContext = holderStrategy.createEmptyContext();
@@ -56,8 +58,24 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public UserInfoDto register(UserInfoDto userInfoDto) {
+    public UserInfoDto registerUser(UserInfoDto userInfoDto) {
         UserEntity user = userInfoMapper.toEntity(userInfoDto);
+        return userInfoMapper.toDto(userRepository.save(user));
+    }
+
+    @Override
+    public UserInfoDto blockUser(String userEmail) {
+        UserEntity user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> NotFoundException.Code.USER_NOT_FOUND.get(userEmail));
+        user.setIsEnabled(false);
+        return userInfoMapper.toDto(userRepository.save(user));
+    }
+
+    @Override
+    public UserInfoDto unblockUser(String userEmail) {
+        UserEntity user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> NotFoundException.Code.USER_NOT_FOUND.get(userEmail));
+        user.setIsEnabled(true);
         return userInfoMapper.toDto(userRepository.save(user));
     }
 }

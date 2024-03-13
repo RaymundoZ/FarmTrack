@@ -16,7 +16,8 @@ public class AuthException extends AuthenticationException {
     public enum Code {
         TOKENS_EXPIRED("Tokens expired. You need to authorize"),
         BAD_CREDENTIALS("Invalid credentials"),
-        NOT_ENOUGH_RIGHTS("Not enough rights for this action");
+        NOT_ENOUGH_RIGHTS("Not enough rights for this action"),
+        ACCOUNT_BLOCKED("Your account has been blocked");
 
         private final String message;
 

@@ -7,5 +7,9 @@ public interface AuthService {
 
     UserInfoDto authenticate(AuthDto authDto);
 
-    UserInfoDto register(UserInfoDto userInfoDto);
+    UserInfoDto registerUser(UserInfoDto userInfoDto);
+
+    UserInfoDto blockUser(String userEmail);
+
+    UserInfoDto unblockUser(String userEmail);
 }

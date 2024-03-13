@@ -33,6 +33,8 @@ public class SecurityConfig {
 
     private static final String[] ADMIN_ENDPOINTS = new String[]{
             "/auth/register",
+            "/auth/block/*",
+            "/auth/unblock/*",
             "/product",
             "/product/*",
             "/report/stat",

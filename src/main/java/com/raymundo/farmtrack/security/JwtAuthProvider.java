@@ -26,20 +26,22 @@ public class JwtAuthProvider implements AuthenticationProvider {
         JwtAuthToken token = (JwtAuthToken) authentication;
         String accessToken = (String) token.getPrincipal();
         String refreshToken = (String) token.getCredentials();
-        if (jwtService.isTokenValid(accessToken)) {
-            UUID userId = jwtService.getUserId(accessToken);
-            TokenType type = jwtService.getTokenType(accessToken);
-            UserEntity user = userRepository.findById(userId).orElseThrow(() ->
-                    NotFoundException.Code.USER_NOT_FOUND.get(userId.toString()));
-            return new JwtAuthToken(user, type);
-        } else if (jwtService.isTokenValid(refreshToken)) {
-            UUID userId = jwtService.getUserId(refreshToken);
-            TokenType type = jwtService.getTokenType(refreshToken);
-            UserEntity user = userRepository.findById(userId).orElseThrow(() ->
-                    NotFoundException.Code.USER_NOT_FOUND.get(userId.toString()));
-            return new JwtAuthToken(user, type);
-        }
+        if (jwtService.isTokenValid(accessToken))
+            return getAuthentication(accessToken);
+        else if (jwtService.isTokenValid(refreshToken))
+            return getAuthentication(refreshToken);
+
         throw AuthException.Code.TOKENS_EXPIRED.get();
+    }
+
+    private Authentication getAuthentication(String token) throws AuthenticationException {
+        UUID userId = jwtService.getUserId(token);
+        TokenType type = jwtService.getTokenType(token);
+        UserEntity user = userRepository.findById(userId).orElseThrow(() ->
+                NotFoundException.Code.USER_NOT_FOUND.get(userId.toString()));
+        if (!user.isEnabled())
+            throw AuthException.Code.ACCOUNT_BLOCKED.get();
+        return new JwtAuthToken(user, type);
     }
 
     @Override
