@@ -34,7 +34,9 @@ public class SecurityConfig {
     private static final String[] ADMIN_ENDPOINTS = new String[]{
             "/auth/register",
             "/product",
-            "/product/*"
+            "/product/*",
+            "/report/stat",
+            "/report/stat/*"
     };
 
     @Bean
