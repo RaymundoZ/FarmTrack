@@ -5,6 +5,7 @@ import com.raymundo.farmtrack.security.JwtAuthProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
@@ -20,6 +21,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 
 @Configuration
 @EnableJpaAuditing
+@EnableScheduling
 public class AppConfig {
 
 

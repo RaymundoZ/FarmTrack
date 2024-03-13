@@ -1,5 +1,7 @@
 package com.raymundo.farmtrack.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.raymundo.farmtrack.dto.ReportDto;
 import com.raymundo.farmtrack.dto.StatisticsDto;
 import com.raymundo.farmtrack.dto.StatisticsItemDto;
@@ -13,9 +15,14 @@ import com.raymundo.farmtrack.repository.ReportRepository;
 import com.raymundo.farmtrack.repository.UserRepository;
 import com.raymundo.farmtrack.service.ReportService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.context.SecurityContextHolderStrategy;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -24,11 +31,16 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ReportServiceImpl implements ReportService {
 
+    @Value(value = "${report-service.admin-email}")
+    private String adminEmail;
+
     private final SecurityContextHolderStrategy holderStrategy;
     private final ReportRepository reportRepository;
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
     private final ReportMapper reportMapper;
+    private final JavaMailSender mailSender;
+    private final ObjectMapper objectMapper;
 
     @Override
     public ReportDto createReport(ReportDto report) {
@@ -74,6 +86,27 @@ public class ReportServiceImpl implements ReportService {
                         entity.getEmail(),
                         List.of()
                 ));
+    }
+
+    @Override
+    @Scheduled(cron = "0 0 20 ? * MON,TUE,WED,THU,FRI")
+    public void sendStatisticsEmail() {
+        SimpleMailMessage message = new SimpleMailMessage();
+        StatisticsDto statistics = new StatisticsDto(
+                LocalDate.now(),
+                LocalDate.now(),
+                null,
+                null
+        );
+        message.setTo(adminEmail);
+        message.setSubject("Daily farm report");
+        try {
+            message.setText(objectMapper.writerWithDefaultPrettyPrinter()
+                    .writeValueAsString(getGeneralStatistics(statistics)));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        mailSender.send(message);
     }
 
     private Map<UserEntity, Map<ProductEntity, Integer>> getSortedMap(List<ReportEntity> reports) {

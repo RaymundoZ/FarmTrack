@@ -12,4 +12,6 @@ public interface ReportService {
     List<StatisticsDto> getGeneralStatistics(StatisticsDto statisticsDto);
 
     StatisticsDto getStatisticsByUser(StatisticsDto statisticsDto, String user);
+
+    void sendStatisticsEmail();
 }
