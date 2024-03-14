@@ -1,4 +1,3 @@
-
 CREATE TABLE _grade
 (
     id                 UUID NOT NULL,

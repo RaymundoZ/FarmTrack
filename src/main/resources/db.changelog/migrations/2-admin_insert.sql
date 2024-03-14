@@ -17,6 +17,6 @@ values (gen_random_uuid(),
         'admin',
         'admin',
         'admin@mail.ru',
-        'admin',
+        '$2a$10$Bpck41OehaWlI3/SoVyqUuFvig0LGcPA6mTxXwMDc.8f.xQCuqEva',
         'ADMIN',
         true);
