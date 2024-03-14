@@ -2,6 +2,7 @@ package com.raymundo.farmtrack.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.raymundo.farmtrack.util.Constants;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
@@ -10,12 +11,12 @@ import java.util.List;
 public record StatisticsDto(
 
         @JsonProperty(value = "start_date", access = JsonProperty.Access.WRITE_ONLY)
-        @NotNull(message = "Start date should not be null")
+        @NotNull(message = Constants.NOT_NULL_MESSAGE)
         @JsonFormat(pattern = "dd.MM.yyyy")
         LocalDate startDate,
 
         @JsonProperty(value = "end_date", access = JsonProperty.Access.WRITE_ONLY)
-        @NotNull(message = "End date should not be null")
+        @NotNull(message = Constants.NOT_NULL_MESSAGE)
         @JsonFormat(pattern = "dd.MM.yyyy")
         LocalDate endDate,
 

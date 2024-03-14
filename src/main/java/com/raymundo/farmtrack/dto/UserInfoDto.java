@@ -2,40 +2,35 @@ package com.raymundo.farmtrack.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.raymundo.farmtrack.util.Constants;
 import com.raymundo.farmtrack.validation.EnumValid;
 import com.raymundo.farmtrack.validation.UserEmailUnique;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 public record UserInfoDto(
 
-        @NotBlank(message = "Email should not be blank")
-        @Email(message = "Email should be valid")
-        @Size(max = 50, message = "Email should not exceed 50 characters")
-        @UserEmailUnique(message = "This email is already taken")
+        @NotBlank(message = Constants.NOT_BLANK_MESSAGE)
+        @Email(message = Constants.EMAIL_MESSAGE)
+        @UserEmailUnique(message = Constants.USER_EMAIL_UNIQUE_MESSAGE)
         String email,
 
         @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-        @NotBlank(message = "Password should not be blank")
-        @Size(max = 50, message = "Password should not exceed 50 characters")
+        @NotBlank(message = Constants.NOT_BLANK_MESSAGE)
         String password,
 
-        @NotBlank(message = "Name should not be blank")
-        @Size(max = 50, message = "Name should not exceed 50 characters")
+        @NotBlank(message = Constants.NOT_BLANK_MESSAGE)
         String name,
 
-        @NotBlank(message = "Surname should not be blank")
-        @Size(max = 50, message = "Surname should not exceed 50 characters")
+        @NotBlank(message = Constants.NOT_BLANK_MESSAGE)
         String surname,
 
-        @NotBlank(message = "Patronymic should not be blank")
-        @Size(max = 50, message = "Patronymic should not exceed 50 characters")
+        @NotBlank(message = Constants.NOT_BLANK_MESSAGE)
         String patronymic,
 
-        @NotNull(message = "Role should not be blank")
-        @EnumValid(message = "Role should be valid")
+        @NotNull(message = Constants.NOT_NULL_MESSAGE)
+        @EnumValid(message = Constants.ENUM_VALID_MESSAGE)
         String role,
 
         @JsonIgnore

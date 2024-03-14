@@ -13,8 +13,7 @@ public class GradeException extends RuntimeException {
 
     @RequiredArgsConstructor
     public enum Code {
-        WORKING_DAY_NOT_ENDED("The working day is not over yet"),
-        GRADE_ALREADY_SET("You have already set the grade today");
+        WORKING_DAY_NOT_ENDED("The working day is not over yet");
 
         private final String message;
 

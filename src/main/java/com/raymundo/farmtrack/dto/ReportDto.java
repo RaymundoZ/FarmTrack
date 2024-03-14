@@ -2,6 +2,7 @@ package com.raymundo.farmtrack.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.raymundo.farmtrack.util.Constants;
 import com.raymundo.farmtrack.util.Measure;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -9,11 +10,11 @@ import jakarta.validation.constraints.Positive;
 
 public record ReportDto(
 
-        @NotBlank(message = "Product should not be blank")
+        @NotBlank(message = Constants.NOT_BLANK_MESSAGE)
         String product,
 
-        @NotNull(message = "Amount should not be null")
-        @Positive(message = "Amount should be positive")
+        @NotNull(message = Constants.NOT_NULL_MESSAGE)
+        @Positive(message = Constants.POSITIVE_MESSAGE)
         Integer amount,
 
         @JsonProperty(access = JsonProperty.Access.READ_ONLY)

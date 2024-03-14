@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,11 +34,15 @@ public class GradeServiceImpl implements GradeService {
         if (time.isBefore(LocalTime.of(20, 0, 0)) &&
                 time.isAfter(LocalTime.of(8, 0, 0)))
             throw GradeException.Code.WORKING_DAY_NOT_ENDED.get();
-        if (gradeRepository.findByCreatedDateAndUser(date, user).isPresent())
-            throw GradeException.Code.GRADE_ALREADY_SET.get();
-
-        GradeEntity grade = gradeMapper.toEntity(gradeDto);
-        grade.setUser(user);
+        Optional<GradeEntity> optional = gradeRepository.findByCreatedDateAndUser(date, user);
+        GradeEntity grade;
+        if (optional.isPresent()) {
+            grade = optional.get();
+            grade.setGrade(gradeDto.grade());
+        } else {
+            grade = gradeMapper.toEntity(gradeDto);
+            grade.setUser(user);
+        }
         return gradeMapper.toDto(gradeRepository.save(grade));
     }
 

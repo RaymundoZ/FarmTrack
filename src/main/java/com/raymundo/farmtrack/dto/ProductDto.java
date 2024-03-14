@@ -1,5 +1,6 @@
 package com.raymundo.farmtrack.dto;
 
+import com.raymundo.farmtrack.util.Constants;
 import com.raymundo.farmtrack.validation.EnumValid;
 import com.raymundo.farmtrack.validation.ProductNameUnique;
 import jakarta.validation.constraints.NotBlank;
@@ -8,16 +9,16 @@ import jakarta.validation.constraints.Positive;
 
 public record ProductDto(
 
-        @NotBlank(message = "Name should not be blank")
-        @ProductNameUnique(message = "This name is already taken")
+        @NotBlank(message = Constants.NOT_BLANK_MESSAGE)
+        @ProductNameUnique(message = Constants.PRODUCT_NAME_UNIQUE_MESSAGE)
         String name,
 
-        @NotNull(message = "Integer should not be null")
-        @Positive(message = "Amount should be positive number")
+        @NotNull(message = Constants.NOT_NULL_MESSAGE)
+        @Positive(message = Constants.POSITIVE_MESSAGE)
         Integer amount,
 
-        @NotBlank(message = "Measure should not be null")
-        @EnumValid(message = "Measure should be valid")
+        @NotBlank(message = Constants.NOT_BLANK_MESSAGE)
+        @EnumValid(message = Constants.ENUM_VALID_MESSAGE)
         String measure
 ) {
 }
