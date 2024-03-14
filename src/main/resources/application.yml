@@ -1,3 +1,5 @@
+server:
+  port: ${SERVER_PORT:8080}
 spring:
   datasource:
     url: 'jdbc:postgresql://db:5433/farmtrack'
@@ -5,7 +7,9 @@ spring:
     password: '1111'
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
+  liquibase:
+    change-log: classpath:db.changelog/changelog-master.yml
 
   mail:
     host: ${MAIL_HOST}
