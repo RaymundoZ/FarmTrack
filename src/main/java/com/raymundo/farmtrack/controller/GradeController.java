@@ -32,7 +32,7 @@ public class GradeController {
     public ResponseEntity<SuccessDto<List<GradeDto>>> getGrades() {
         return ResponseEntity.ok(new SuccessDto<>(
                 HttpStatus.OK.value(),
-                "All grades successfully recieved",
+                "All grades successfully received",
                 gradeService.getGrades()
         ));
     }
@@ -41,7 +41,7 @@ public class GradeController {
     public ResponseEntity<SuccessDto<List<GradeDto>>> getGradesByUser(@PathVariable String userEmail) {
         return ResponseEntity.ok(new SuccessDto<>(
                 HttpStatus.OK.value(),
-                "All grades successfully recieved",
+                "All grades successfully received",
                 gradeService.getGradesByUser(userEmail)
         ));
     }

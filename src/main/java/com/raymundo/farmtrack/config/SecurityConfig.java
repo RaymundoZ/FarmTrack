@@ -40,7 +40,10 @@ public class SecurityConfig {
             "/report/stat",
             "/report/stat/*",
             "/grade",
-            "/grade/*"
+            "/grade/*",
+            "/harvest",
+            "/harvest/date/*",
+            "/harvest/product/*"
     };
 
     @Bean

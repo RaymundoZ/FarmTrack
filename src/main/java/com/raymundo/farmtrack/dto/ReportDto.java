@@ -21,6 +21,9 @@ public record ReportDto(
         Measure measure,
 
         @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-        String user
+        String user,
+
+        @JsonProperty(value = "rate_left", access = JsonProperty.Access.READ_ONLY)
+        Integer rateLeft
 ) {
 }
