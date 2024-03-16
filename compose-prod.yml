@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres:16
+    container_name: farmtrack-db-prod
+    environment:
+      - POSTGRES_DB=farmtrack
+      - POSTGRES_PASSWORD=1111
+      - POSTGRES_USER=farmadmin
+    ports:
+      - 5433:5432
+    volumes:
+      - farmtrack-prod:/var/lib/postgresql/data
+
+  app:
+    container_name: farmtrack
+    image: raymundoz/farmtrack:latest
+    env_file:
+      - .env
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+
+volumes:
+  farmtrack-prod:
+    name: farmtrack-prod

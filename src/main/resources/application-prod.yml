@@ -1,10 +1,13 @@
 server:
   port: ${SERVER_PORT:8080}
 spring:
+  docker:
+    compose:
+      file: compose-prod.yml
   datasource:
-    url: 'jdbc:postgresql://db:5432/farmtrack'
-    username: 'farmadmin'
-    password: '1111'
+    url: jdbc:postgresql://db:5432/farmtrack
+    username: farmadmin
+    password: 1111
   jpa:
     hibernate:
       ddl-auto: validate
