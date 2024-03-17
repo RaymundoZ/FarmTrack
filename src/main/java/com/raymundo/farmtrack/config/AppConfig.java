@@ -24,7 +24,6 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 @EnableScheduling
 public class AppConfig {
 
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

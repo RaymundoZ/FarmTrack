@@ -1,4 +1,4 @@
-package com.raymundo.farmtrack.exception;
+package com.raymundo.farmtrack.util.exception;
 
 import lombok.RequiredArgsConstructor;
 

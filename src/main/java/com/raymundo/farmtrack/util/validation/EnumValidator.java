@@ -1,8 +1,8 @@
-package com.raymundo.farmtrack.validation;
+package com.raymundo.farmtrack.util.validation;
 
-import com.raymundo.farmtrack.util.Measure;
-import com.raymundo.farmtrack.util.Role;
-import com.raymundo.farmtrack.util.TokenType;
+import com.raymundo.farmtrack.util.enumeration.Measure;
+import com.raymundo.farmtrack.util.enumeration.Role;
+import com.raymundo.farmtrack.util.enumeration.TokenType;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.stereotype.Component;

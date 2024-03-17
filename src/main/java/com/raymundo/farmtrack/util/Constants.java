@@ -10,6 +10,8 @@ public class Constants {
     public static final String PRODUCT_NAME_UNIQUE_MESSAGE = "This name is already taken";
     public static final String USER_EMAIL_UNIQUE_MESSAGE = "This email is already taken";
     public static final String ENUM_VALID_MESSAGE = "Enum should be valid";
+    public static final String ACCESS_TOKEN = "access_token";
+    public static final String REFRESH_TOKEN = "refresh_token";
 
     private Constants() {
     }

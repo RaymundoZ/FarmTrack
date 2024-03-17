@@ -1,8 +1,8 @@
 package com.raymundo.farmtrack.controller.advice;
 
 import com.raymundo.farmtrack.dto.basic.ErrorDto;
-import com.raymundo.farmtrack.exception.GradeException;
-import com.raymundo.farmtrack.exception.NotFoundException;
+import com.raymundo.farmtrack.util.exception.GradeException;
+import com.raymundo.farmtrack.util.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;

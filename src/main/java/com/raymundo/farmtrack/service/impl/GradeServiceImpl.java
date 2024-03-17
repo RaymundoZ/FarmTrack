@@ -3,12 +3,12 @@ package com.raymundo.farmtrack.service.impl;
 import com.raymundo.farmtrack.dto.GradeDto;
 import com.raymundo.farmtrack.entity.GradeEntity;
 import com.raymundo.farmtrack.entity.UserEntity;
-import com.raymundo.farmtrack.exception.GradeException;
-import com.raymundo.farmtrack.exception.NotFoundException;
 import com.raymundo.farmtrack.mapper.GradeMapper;
 import com.raymundo.farmtrack.repository.GradeRepository;
 import com.raymundo.farmtrack.repository.UserRepository;
 import com.raymundo.farmtrack.service.GradeService;
+import com.raymundo.farmtrack.util.exception.GradeException;
+import com.raymundo.farmtrack.util.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

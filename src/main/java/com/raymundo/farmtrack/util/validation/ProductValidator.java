@@ -1,6 +1,6 @@
-package com.raymundo.farmtrack.validation;
+package com.raymundo.farmtrack.util.validation;
 
-import com.raymundo.farmtrack.repository.UserRepository;
+import com.raymundo.farmtrack.repository.ProductRepository;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class UserValidator implements ConstraintValidator<UserEmailUnique, String> {
+public class ProductValidator implements ConstraintValidator<ProductNameUnique, String> {
 
-    private final UserRepository userRepository;
+    private final ProductRepository productRepository;
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return userRepository.findByEmail(value).isEmpty();
+        return productRepository.findByName(value).isEmpty();
     }
 }

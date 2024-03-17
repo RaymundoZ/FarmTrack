@@ -1,6 +1,6 @@
 package com.raymundo.farmtrack.entity;
 
-import com.raymundo.farmtrack.util.Role;
+import com.raymundo.farmtrack.util.enumeration.Role;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

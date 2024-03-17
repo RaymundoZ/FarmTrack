@@ -1,7 +1,7 @@
 package com.raymundo.farmtrack.security;
 
 import com.raymundo.farmtrack.entity.UserEntity;
-import com.raymundo.farmtrack.util.TokenType;
+import com.raymundo.farmtrack.util.enumeration.TokenType;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 

@@ -1,18 +1,21 @@
 package com.raymundo.farmtrack.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.raymundo.farmtrack.util.Constants;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
+import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
+import static com.raymundo.farmtrack.util.Constants.EMAIL_MESSAGE;
+import static com.raymundo.farmtrack.util.Constants.NOT_BLANK_MESSAGE;
+
 public record AuthDto(
 
-        @NotBlank(message = Constants.NOT_BLANK_MESSAGE)
-        @Email(message = Constants.EMAIL_MESSAGE)
+        @NotBlank(message = NOT_BLANK_MESSAGE)
+        @Email(message = EMAIL_MESSAGE)
         String email,
 
-        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-        @NotBlank(message = Constants.NOT_BLANK_MESSAGE)
+        @JsonProperty(access = WRITE_ONLY)
+        @NotBlank(message = NOT_BLANK_MESSAGE)
         String password
 ) {
 }

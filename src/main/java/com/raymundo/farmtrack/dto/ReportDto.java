@@ -2,29 +2,32 @@ package com.raymundo.farmtrack.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.raymundo.farmtrack.util.Constants;
-import com.raymundo.farmtrack.util.Measure;
+import com.raymundo.farmtrack.util.enumeration.Measure;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
+import static com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING;
+import static com.fasterxml.jackson.annotation.JsonProperty.Access.READ_ONLY;
+import static com.raymundo.farmtrack.util.Constants.*;
+
 public record ReportDto(
 
-        @NotBlank(message = Constants.NOT_BLANK_MESSAGE)
+        @NotBlank(message = NOT_BLANK_MESSAGE)
         String product,
 
-        @NotNull(message = Constants.NOT_NULL_MESSAGE)
-        @Positive(message = Constants.POSITIVE_MESSAGE)
+        @NotNull(message = NOT_NULL_MESSAGE)
+        @Positive(message = POSITIVE_MESSAGE)
         Integer amount,
 
-        @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-        @JsonFormat(shape = JsonFormat.Shape.STRING)
+        @JsonProperty(access = READ_ONLY)
+        @JsonFormat(shape = STRING)
         Measure measure,
 
-        @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+        @JsonProperty(access = READ_ONLY)
         String user,
 
-        @JsonProperty(value = "rate_left", access = JsonProperty.Access.READ_ONLY)
+        @JsonProperty(value = "rate_left", access = READ_ONLY)
         Integer rateLeft
 ) {
 }

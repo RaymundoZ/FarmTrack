@@ -1,3 +1,24 @@
 databaseChangeLog:
   - includeAll:
       path: db.changelog/migrations/
+
+  - property:
+      dbms: postgresql
+      name: liquibase.admin.name
+      value: ${LIQUIBASE_ADMIN_NAME}
+  - property:
+      dbms: postgresql
+      name: liquibase.admin.surname
+      value: ${LIQUIBASE_ADMIN_SURNAME}
+  - property:
+      dbms: postgresql
+      name: liquibase.admin.patronymic
+      value: ${LIQUIBASE_ADMIN_PATRONYMIC}
+  - property:
+      dbms: postgresql
+      name: liquibase.admin.email
+      value: ${LIQUIBASE_ADMIN_EMAIL}
+  - property:
+      dbms: postgresql
+      name: liquibase.admin.password
+      value: ${LIQUIBASE_ADMIN_PASSWORD}

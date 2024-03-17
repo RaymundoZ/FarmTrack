@@ -1,11 +1,11 @@
 package com.raymundo.farmtrack.security;
 
 import com.raymundo.farmtrack.entity.UserEntity;
-import com.raymundo.farmtrack.exception.AuthException;
-import com.raymundo.farmtrack.exception.NotFoundException;
 import com.raymundo.farmtrack.repository.UserRepository;
 import com.raymundo.farmtrack.service.JwtService;
-import com.raymundo.farmtrack.util.TokenType;
+import com.raymundo.farmtrack.util.enumeration.TokenType;
+import com.raymundo.farmtrack.util.exception.AuthException;
+import com.raymundo.farmtrack.util.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;

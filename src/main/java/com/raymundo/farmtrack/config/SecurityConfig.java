@@ -2,9 +2,9 @@ package com.raymundo.farmtrack.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.raymundo.farmtrack.dto.basic.ErrorDto;
-import com.raymundo.farmtrack.exception.AuthException;
 import com.raymundo.farmtrack.security.JwtFilter;
-import com.raymundo.farmtrack.util.Role;
+import com.raymundo.farmtrack.util.enumeration.Role;
+import com.raymundo.farmtrack.util.exception.AuthException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;

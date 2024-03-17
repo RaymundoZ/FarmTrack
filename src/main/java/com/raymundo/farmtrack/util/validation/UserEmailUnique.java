@@ -1,4 +1,4 @@
-package com.raymundo.farmtrack.validation;
+package com.raymundo.farmtrack.util.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -10,8 +10,8 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = ProductValidator.class)
-public @interface ProductNameUnique {
+@Constraint(validatedBy = UserValidator.class)
+public @interface UserEmailUnique {
 
     String message() default "";
 

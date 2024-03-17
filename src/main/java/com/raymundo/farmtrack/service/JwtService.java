@@ -1,7 +1,7 @@
 package com.raymundo.farmtrack.service;
 
 import com.raymundo.farmtrack.entity.UserEntity;
-import com.raymundo.farmtrack.util.TokenType;
+import com.raymundo.farmtrack.util.enumeration.TokenType;
 
 import java.util.UUID;
 

@@ -13,6 +13,12 @@ spring:
       ddl-auto: validate
   liquibase:
     change-log: classpath:db.changelog/changelog-master.yml
+    parameters:
+      "LIQUIBASE_ADMIN_NAME": ${LIQUIBASE_ADMIN_NAME}
+      "LIQUIBASE_ADMIN_SURNAME": ${LIQUIBASE_ADMIN_SURNAME}
+      "LIQUIBASE_ADMIN_PATRONYMIC": ${LIQUIBASE_ADMIN_PATRONYMIC}
+      "LIQUIBASE_ADMIN_EMAIL": ${LIQUIBASE_ADMIN_EMAIL}
+      "LIQUIBASE_ADMIN_PASSWORD": ${LIQUIBASE_ADMIN_PASSWORD}
 
   mail:
     host: ${MAIL_HOST}
@@ -24,3 +30,5 @@ spring:
 
 report-service:
   admin-email: ${ADMIN_EMAIL}
+jwt-service:
+  secret-key: ${SECRET_KEY}

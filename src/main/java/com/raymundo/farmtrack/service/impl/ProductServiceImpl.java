@@ -2,10 +2,10 @@ package com.raymundo.farmtrack.service.impl;
 
 import com.raymundo.farmtrack.dto.ProductDto;
 import com.raymundo.farmtrack.entity.ProductEntity;
-import com.raymundo.farmtrack.exception.NotFoundException;
 import com.raymundo.farmtrack.mapper.ProductMapper;
 import com.raymundo.farmtrack.repository.ProductRepository;
 import com.raymundo.farmtrack.service.ProductService;
+import com.raymundo.farmtrack.util.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

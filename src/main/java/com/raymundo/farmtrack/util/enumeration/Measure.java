@@ -1,4 +1,4 @@
-package com.raymundo.farmtrack.util;
+package com.raymundo.farmtrack.util.enumeration;
 
 public enum Measure {
     KILOGRAM,

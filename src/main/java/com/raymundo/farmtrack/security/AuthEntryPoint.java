@@ -2,7 +2,7 @@ package com.raymundo.farmtrack.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.raymundo.farmtrack.dto.basic.ErrorDto;
-import com.raymundo.farmtrack.exception.AuthException;
+import com.raymundo.farmtrack.util.exception.AuthException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

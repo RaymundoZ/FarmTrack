@@ -1,3 +1,9 @@
+--liquibase formatted sql
+
+--changeset Raymundo:10
+create extension if not exists pgcrypto;
+
+--changeset Raymundo:11
 insert into _user (id,
                    created_by,
                    created_date,
@@ -10,13 +16,13 @@ insert into _user (id,
                    role,
                    is_enabled)
 values (gen_random_uuid(),
-        null,
+        'liquibase',
         current_date,
         current_date,
-        'admin',
-        'admin',
-        'admin',
-        'admin@mail.ru',
-        '$2a$10$Bpck41OehaWlI3/SoVyqUuFvig0LGcPA6mTxXwMDc.8f.xQCuqEva',
+        '${liquibase.admin.name}',
+        '${liquibase.admin.surname}',
+        '${liquibase.admin.patronymic}',
+        '${liquibase.admin.email}',
+        crypt('${liquibase.admin.password}', gen_salt('bf')),
         'ADMIN',
         true);

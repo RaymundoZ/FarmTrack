@@ -1,7 +1,9 @@
 package com.raymundo.farmtrack.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.raymundo.farmtrack.util.Measure;
+import com.raymundo.farmtrack.util.enumeration.Measure;
+
+import static com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING;
 
 public record StatisticsItemDto(
 
@@ -9,7 +11,7 @@ public record StatisticsItemDto(
 
         Integer amount,
 
-        @JsonFormat(shape = JsonFormat.Shape.STRING)
+        @JsonFormat(shape = STRING)
         Measure measure
 ) {
 }
