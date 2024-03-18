@@ -9,9 +9,33 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
+/**
+ * Custom validator for validating enums.
+ * <p>
+ * This class implements the {@link ConstraintValidator} interface to validate enum values
+ * annotated with the {@link EnumValid} annotation. It checks if the provided enum value exists
+ * in one of the specified enum classes (Measure, Role, or TokenType).
+ *
+ * @author RaymundoZ
+ * @see EnumValid
+ * @see Measure
+ * @see Role
+ * @see TokenType
+ */
 @Component
 public class EnumValidator implements ConstraintValidator<EnumValid, String> {
 
+    /**
+     * Checks if the provided enum value is valid.
+     * <p>
+     * This method validates the provided enum value by checking if it exists in one of the
+     * specified enum classes (Measure, Role, or TokenType). It returns true if the value is valid,
+     * and false otherwise.
+     *
+     * @param value   The enum value to be validated.
+     * @param context The validation context.
+     * @return True if the enum value is valid, false otherwise.
+     */
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
         boolean measureExist = Arrays.stream(Measure.values())
