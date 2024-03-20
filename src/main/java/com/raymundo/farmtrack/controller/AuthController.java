@@ -4,6 +4,9 @@ import com.raymundo.farmtrack.dto.AuthDto;
 import com.raymundo.farmtrack.dto.UserInfoDto;
 import com.raymundo.farmtrack.dto.basic.SuccessDto;
 import com.raymundo.farmtrack.service.AuthService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
  *
  * @author RaymundoZ
  */
+@Tag(name = "AuthController", description = "Controller class that handles authentication and user-related operations")
 @RestController
 @RequestMapping(value = "/auth")
 @RequiredArgsConstructor
@@ -41,6 +45,7 @@ public class AuthController {
      * @param response The {@link HttpServletResponse} to set cookies for tokens.
      * @return A {@link ResponseEntity} containing a success message and user information upon successful authentication.
      */
+    @Operation(summary = "Endpoint for user authentication")
     @PostMapping(value = "/login")
     public ResponseEntity<SuccessDto<UserInfoDto>> authenticate(@Valid @RequestBody AuthDto authDto, HttpServletResponse response) {
         UserInfoDto userInfoDto = authService.authenticate(authDto);
@@ -67,6 +72,7 @@ public class AuthController {
      * @param userInfoDto A {@link UserInfoDto} object containing user information for registration.
      * @return A {@link ResponseEntity} containing a success message and the registered user information upon successful registration.
      */
+    @Operation(summary = "Endpoint for user registration")
     @PostMapping(value = "/register")
     public ResponseEntity<SuccessDto<UserInfoDto>> registerUser(@Valid @RequestBody UserInfoDto userInfoDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(new SuccessDto<>(
@@ -88,8 +94,11 @@ public class AuthController {
      * @param userEmail The email address of the user to be blocked.
      * @return A {@link ResponseEntity} containing a success message and the updated user information upon successful blocking.
      */
+    @Operation(summary = "Endpoint for blocking a user")
     @PostMapping(value = "/block/{userEmail}")
-    public ResponseEntity<SuccessDto<UserInfoDto>> blockUser(@PathVariable String userEmail) {
+    public ResponseEntity<SuccessDto<UserInfoDto>> blockUser(@PathVariable
+                                                             @Parameter(description = "The email address of the user to be blocked")
+                                                             String userEmail) {
         return ResponseEntity.ok(new SuccessDto<>(
                 HttpStatus.OK.value(),
                 "User has been successfully blocked",
@@ -109,8 +118,11 @@ public class AuthController {
      * @param userEmail The email address of the user to be unblocked.
      * @return A {@link ResponseEntity} containing a success message and the updated user information upon successful unblocking.
      */
+    @Operation(summary = "Endpoint for unblocking a user")
     @PostMapping(value = "/unblock/{userEmail}")
-    public ResponseEntity<SuccessDto<UserInfoDto>> unblockUser(@PathVariable String userEmail) {
+    public ResponseEntity<SuccessDto<UserInfoDto>> unblockUser(@PathVariable
+                                                               @Parameter(description = "The email address of the user to be unblocked")
+                                                               String userEmail) {
         return ResponseEntity.ok(new SuccessDto<>(
                 HttpStatus.OK.value(),
                 "User has been successfully unblocked",

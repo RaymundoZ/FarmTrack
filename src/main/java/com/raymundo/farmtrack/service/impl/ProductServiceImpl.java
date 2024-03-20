@@ -2,8 +2,10 @@ package com.raymundo.farmtrack.service.impl;
 
 import com.raymundo.farmtrack.dto.ProductDto;
 import com.raymundo.farmtrack.entity.ProductEntity;
+import com.raymundo.farmtrack.entity.ReportEntity;
 import com.raymundo.farmtrack.mapper.ProductMapper;
 import com.raymundo.farmtrack.repository.ProductRepository;
+import com.raymundo.farmtrack.repository.ReportRepository;
 import com.raymundo.farmtrack.service.ProductService;
 import com.raymundo.farmtrack.util.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,7 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+    private final ReportRepository reportRepository;
     private final ProductMapper productMapper;
 
     /**
@@ -59,6 +62,8 @@ public class ProductServiceImpl implements ProductService {
     public ProductDto deleteProduct(String productName) {
         ProductEntity product = productRepository.findByName(productName).orElseThrow(() ->
                 NotFoundException.Code.PRODUCT_NOT_FOUND.get(productName));
+        List<ReportEntity> reports = reportRepository.findAllByProduct(product);
+        reportRepository.deleteAll(reports);
         productRepository.delete(product);
         return productMapper.toDto(product);
     }

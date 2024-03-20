@@ -24,7 +24,11 @@ import java.time.LocalTime;
 public class SecurityConfig {
 
     private static final String[] PERMIT_ALL_ENDPOINTS = new String[]{
-            "/auth/login"
+            "/auth/login",
+            "/swagger-ui/index.html",
+            "/swagger-ui/*",
+            "/v3/api-docs",
+            "/v3/api-docs/*"
     };
 
     private static final String[] USER_ENDPOINTS = new String[]{

@@ -3,6 +3,9 @@ package com.raymundo.farmtrack.controller;
 import com.raymundo.farmtrack.dto.GradeDto;
 import com.raymundo.farmtrack.dto.basic.SuccessDto;
 import com.raymundo.farmtrack.service.GradeService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +22,7 @@ import java.util.List;
  *
  * @author RaymundoZ
  */
+@Tag(name = "GradeController", description = "Controller class that handles grade-related operations")
 @RestController
 @RequestMapping(value = "/grade")
 @RequiredArgsConstructor
@@ -39,6 +43,7 @@ public class GradeController {
      * @param gradeDto A {@link GradeDto} object containing the rating information.
      * @return A {@link ResponseEntity} containing a success message and the created grade information upon successful rating.
      */
+    @Operation(summary = "Endpoint for rating a user")
     @PostMapping
     public ResponseEntity<SuccessDto<GradeDto>> rateUser(@Valid @RequestBody GradeDto gradeDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -59,6 +64,7 @@ public class GradeController {
      *
      * @return A {@link ResponseEntity} containing a success message and a list of all grades upon successful retrieval.
      */
+    @Operation(summary = "Endpoint for retrieving all grades")
     @GetMapping
     public ResponseEntity<SuccessDto<List<GradeDto>>> getGrades() {
         return ResponseEntity.ok(new SuccessDto<>(
@@ -79,8 +85,11 @@ public class GradeController {
      * @param userEmail The email address of the user for whom grades are to be retrieved.
      * @return A {@link ResponseEntity} containing a success message and a list of grades for the user upon successful retrieval.
      */
-    @GetMapping(value = "{userEmail}")
-    public ResponseEntity<SuccessDto<List<GradeDto>>> getGradesByUser(@PathVariable String userEmail) {
+    @Operation(summary = "Endpoint for retrieving grades by user")
+    @GetMapping(value = "/{userEmail}")
+    public ResponseEntity<SuccessDto<List<GradeDto>>> getGradesByUser(@PathVariable
+                                                                      @Parameter(description = "The email address of the user for whom grades are to be retrieved")
+                                                                      String userEmail) {
         return ResponseEntity.ok(new SuccessDto<>(
                 HttpStatus.OK.value(),
                 "All grades successfully received",

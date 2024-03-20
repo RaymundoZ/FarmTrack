@@ -38,6 +38,7 @@ public class EnumValidator implements ConstraintValidator<EnumValid, String> {
      */
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
+        if (value == null) return false;
         boolean measureExist = Arrays.stream(Measure.values())
                 .anyMatch(measure -> measure.toString().equals(value.toUpperCase()));
         boolean roleExist = Arrays.stream(Role.values())

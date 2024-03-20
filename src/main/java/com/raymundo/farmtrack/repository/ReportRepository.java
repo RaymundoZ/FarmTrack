@@ -13,6 +13,8 @@ import java.util.UUID;
 @Repository
 public interface ReportRepository extends JpaRepository<ReportEntity, UUID> {
 
+    List<ReportEntity> findAllByProduct(ProductEntity product);
+
     List<ReportEntity> findAllByCreatedDateBetween(LocalDate start, LocalDate end);
 
     @Query(value = "select coalesce(sum(r.amount), 0) from ReportEntity r where r.product = ?1 and r.createdDate = ?2")

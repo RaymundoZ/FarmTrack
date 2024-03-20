@@ -3,6 +3,9 @@ package com.raymundo.farmtrack.controller;
 import com.raymundo.farmtrack.dto.ProductDto;
 import com.raymundo.farmtrack.dto.basic.SuccessDto;
 import com.raymundo.farmtrack.service.ProductService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +22,7 @@ import java.util.List;
  *
  * @author RaymundoZ
  */
+@Tag(name = "ProductController", description = "Controller class that handles product-related operations")
 @RestController
 @RequestMapping(value = "/product")
 @RequiredArgsConstructor
@@ -39,6 +43,7 @@ public class ProductController {
      * @param productDto A {@link ProductDto} object containing the product information for registration.
      * @return A {@link ResponseEntity} containing a success message and the registered product information upon successful registration.
      */
+    @Operation(summary = "Endpoint for registering a product")
     @PostMapping
     public ResponseEntity<SuccessDto<ProductDto>> registerProduct(@Valid @RequestBody ProductDto productDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(new SuccessDto<>(
@@ -60,8 +65,11 @@ public class ProductController {
      * @param productName The name of the product to be deleted.
      * @return A {@link ResponseEntity} containing a success message and the deleted product information upon successful deletion.
      */
-    @DeleteMapping(value = "{productName}")
-    public ResponseEntity<SuccessDto<ProductDto>> deleteProduct(@PathVariable String productName) {
+    @Operation(summary = "Endpoint for deleting a product")
+    @DeleteMapping(value = "/{productName}")
+    public ResponseEntity<SuccessDto<ProductDto>> deleteProduct(@PathVariable
+                                                                @Parameter(description = "The name of the product to be deleted")
+                                                                String productName) {
         return ResponseEntity.ok(new SuccessDto<>(
                 HttpStatus.OK.value(),
                 "Product successfully deleted",
@@ -79,11 +87,12 @@ public class ProductController {
      *
      * @return A {@link ResponseEntity} containing a success message and a list of all products upon successful retrieval.
      */
+    @Operation(summary = "Endpoint for retrieving all products")
     @GetMapping
     public ResponseEntity<SuccessDto<List<ProductDto>>> getAllProducts() {
         return ResponseEntity.ok(new SuccessDto<>(
                 HttpStatus.OK.value(),
-                "Product list recieved successfully",
+                "Product list received successfully",
                 productService.getAllProducts()
         ));
     }

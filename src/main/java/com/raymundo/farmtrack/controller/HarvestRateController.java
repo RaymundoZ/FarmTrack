@@ -3,6 +3,9 @@ package com.raymundo.farmtrack.controller;
 import com.raymundo.farmtrack.dto.HarvestRateDto;
 import com.raymundo.farmtrack.dto.basic.SuccessDto;
 import com.raymundo.farmtrack.service.HarvestRateService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,6 +23,7 @@ import java.util.List;
  *
  * @author RaymundoZ
  */
+@Tag(name = "HarvestRateController", description = "Controller class that handles harvest rate-related operations")
 @RestController
 @RequestMapping(value = "/harvest")
 @RequiredArgsConstructor
@@ -40,6 +44,7 @@ public class HarvestRateController {
      * @param harvestRateDto A {@link HarvestRateDto} object containing the harvest rate information.
      * @return A {@link ResponseEntity} containing a success message and the created harvest rate information upon successful creation.
      */
+    @Operation(summary = "Endpoint for creating a harvest rate")
     @PostMapping
     public ResponseEntity<SuccessDto<HarvestRateDto>> createHarvestRate(@Valid @RequestBody HarvestRateDto harvestRateDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -60,6 +65,7 @@ public class HarvestRateController {
      *
      * @return A {@link ResponseEntity} containing a success message and a list of all harvest rates upon successful retrieval.
      */
+    @Operation(summary = "Endpoint for retrieving all harvest rates")
     @GetMapping
     public ResponseEntity<SuccessDto<List<HarvestRateDto>>> getAllHarvestRates() {
         return ResponseEntity.ok(new SuccessDto<>(
@@ -80,8 +86,11 @@ public class HarvestRateController {
      * @param date The date for which harvest rates are to be retrieved.
      * @return A {@link ResponseEntity} containing a success message and a list of harvest rates for the date upon successful retrieval.
      */
+    @Operation(summary = "Endpoint for retrieving harvest rates by date")
     @GetMapping(value = "/date/{date}")
-    public ResponseEntity<SuccessDto<List<HarvestRateDto>>> getHarvestRatesByDate(@PathVariable LocalDate date) {
+    public ResponseEntity<SuccessDto<List<HarvestRateDto>>> getHarvestRatesByDate(@PathVariable
+                                                                                  @Parameter(description = "The date for which harvest rates are to be retrieved")
+                                                                                  LocalDate date) {
         return ResponseEntity.ok(new SuccessDto<>(
                 HttpStatus.OK.value(),
                 "Harvest rates by date successfully received",
@@ -100,8 +109,11 @@ public class HarvestRateController {
      * @param product The name of the product for which harvest rates are to be retrieved.
      * @return A {@link ResponseEntity} containing a success message and a list of harvest rates for the product upon successful retrieval.
      */
+    @Operation(summary = "Endpoint for retrieving harvest rates by product")
     @GetMapping(value = "/product/{product}")
-    public ResponseEntity<SuccessDto<List<HarvestRateDto>>> getHarvestRatesByProduct(@PathVariable String product) {
+    public ResponseEntity<SuccessDto<List<HarvestRateDto>>> getHarvestRatesByProduct(@PathVariable
+                                                                                     @Parameter(description = "The name of the product for which harvest rates are to be retrieved")
+                                                                                     String product) {
         return ResponseEntity.ok(new SuccessDto<>(
                 HttpStatus.OK.value(),
                 "Harvest rates by product successfully received",
